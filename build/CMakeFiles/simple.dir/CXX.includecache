@@ -6,13 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/gustavo/git/roboime-usb/src/main.cpp
-libusb-1.0/libusb.h
+../src/joystick.hh
+string
 -
+
+/home/gustavo/git/roboime-usb/src/main.cpp
 unistd.h
 -
-iostream
+stdlib.h
+-
+joystick.hh
 -
 stdio.h
+-
+libusb-1.0/libusb.h
+-
+iostream
 -
 

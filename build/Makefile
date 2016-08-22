@@ -111,6 +111,30 @@ simple/fast:
 	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/build
 .PHONY : simple/fast
 
+src/joystick.o: src/joystick.cc.o
+.PHONY : src/joystick.o
+
+# target to build an object file
+src/joystick.cc.o:
+	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/src/joystick.cc.o
+.PHONY : src/joystick.cc.o
+
+src/joystick.i: src/joystick.cc.i
+.PHONY : src/joystick.i
+
+# target to preprocess a source file
+src/joystick.cc.i:
+	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/src/joystick.cc.i
+.PHONY : src/joystick.cc.i
+
+src/joystick.s: src/joystick.cc.s
+.PHONY : src/joystick.s
+
+# target to generate assembly for a file
+src/joystick.cc.s:
+	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/src/joystick.cc.s
+.PHONY : src/joystick.cc.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -144,6 +168,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... simple"
+	@echo "... src/joystick.o"
+	@echo "... src/joystick.i"
+	@echo "... src/joystick.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

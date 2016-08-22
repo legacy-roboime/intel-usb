@@ -116,7 +116,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=UsbPure
+CMAKE_PROJECT_NAME:STATIC=roboime-intel-tx
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -174,10 +174,10 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 USB_LIB:FILEPATH=/usr/lib/x86_64-linux-gnu/libusb-1.0.so
 
 //Value Computed by CMake
-UsbPure_BINARY_DIR:STATIC=/home/gustavo/git/roboime-usb/build
+roboime-intel-tx_BINARY_DIR:STATIC=/home/gustavo/git/roboime-usb/build
 
 //Value Computed by CMake
-UsbPure_SOURCE_DIR:STATIC=/home/gustavo/git/roboime-usb
+roboime-intel-tx_SOURCE_DIR:STATIC=/home/gustavo/git/roboime-usb
 
 
 ########################

@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/gustavo/git/roboime-usb/build
 CMakeFiles/simple.dir/all:
 	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/depend
 	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/gustavo/git/roboime-usb/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/gustavo/git/roboime-usb/build/CMakeFiles  1 2
 	@echo "Built target simple"
 .PHONY : CMakeFiles/simple.dir/all
 
@@ -69,7 +69,7 @@ all: CMakeFiles/simple.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/simple.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gustavo/git/roboime-usb/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gustavo/git/roboime-usb/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/simple.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gustavo/git/roboime-usb/build/CMakeFiles 0
 .PHONY : CMakeFiles/simple.dir/rule

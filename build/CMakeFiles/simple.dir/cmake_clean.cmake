@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/simple.dir/src/main.cpp.o"
+  "CMakeFiles/simple.dir/src/joystick.cc.o"
   "simple.pdb"
   "simple"
 )

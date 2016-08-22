@@ -72,14 +72,39 @@ CMakeFiles/simple.dir/src/main.cpp.o.provides: CMakeFiles/simple.dir/src/main.cp
 
 CMakeFiles/simple.dir/src/main.cpp.o.provides.build: CMakeFiles/simple.dir/src/main.cpp.o
 
+CMakeFiles/simple.dir/src/joystick.cc.o: CMakeFiles/simple.dir/flags.make
+CMakeFiles/simple.dir/src/joystick.cc.o: ../src/joystick.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/gustavo/git/roboime-usb/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/simple.dir/src/joystick.cc.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/simple.dir/src/joystick.cc.o -c /home/gustavo/git/roboime-usb/src/joystick.cc
+
+CMakeFiles/simple.dir/src/joystick.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple.dir/src/joystick.cc.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/gustavo/git/roboime-usb/src/joystick.cc > CMakeFiles/simple.dir/src/joystick.cc.i
+
+CMakeFiles/simple.dir/src/joystick.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple.dir/src/joystick.cc.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/gustavo/git/roboime-usb/src/joystick.cc -o CMakeFiles/simple.dir/src/joystick.cc.s
+
+CMakeFiles/simple.dir/src/joystick.cc.o.requires:
+.PHONY : CMakeFiles/simple.dir/src/joystick.cc.o.requires
+
+CMakeFiles/simple.dir/src/joystick.cc.o.provides: CMakeFiles/simple.dir/src/joystick.cc.o.requires
+	$(MAKE) -f CMakeFiles/simple.dir/build.make CMakeFiles/simple.dir/src/joystick.cc.o.provides.build
+.PHONY : CMakeFiles/simple.dir/src/joystick.cc.o.provides
+
+CMakeFiles/simple.dir/src/joystick.cc.o.provides.build: CMakeFiles/simple.dir/src/joystick.cc.o
+
 # Object files for target simple
 simple_OBJECTS = \
-"CMakeFiles/simple.dir/src/main.cpp.o"
+"CMakeFiles/simple.dir/src/main.cpp.o" \
+"CMakeFiles/simple.dir/src/joystick.cc.o"
 
 # External object files for target simple
 simple_EXTERNAL_OBJECTS =
 
 simple: CMakeFiles/simple.dir/src/main.cpp.o
+simple: CMakeFiles/simple.dir/src/joystick.cc.o
 simple: CMakeFiles/simple.dir/build.make
 simple: /usr/lib/x86_64-linux-gnu/libusb-1.0.so
 simple: CMakeFiles/simple.dir/link.txt
@@ -91,6 +116,7 @@ CMakeFiles/simple.dir/build: simple
 .PHONY : CMakeFiles/simple.dir/build
 
 CMakeFiles/simple.dir/requires: CMakeFiles/simple.dir/src/main.cpp.o.requires
+CMakeFiles/simple.dir/requires: CMakeFiles/simple.dir/src/joystick.cc.o.requires
 .PHONY : CMakeFiles/simple.dir/requires
 
 CMakeFiles/simple.dir/clean:
