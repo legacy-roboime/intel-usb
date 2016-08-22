@@ -61,9 +61,9 @@ int main(){
   
   unsigned char data_out[] = {'a', 'g', 'u', 's', 't', 'a'};
   unsigned char data_in[5];
-
+  int i;
   while(1){
-    sleep(1);
+    usleep(10);
     int result;
     int nSent;
     int nRec;
@@ -74,14 +74,16 @@ int main(){
       std::cerr << "ERROR in bulk write" <<std::endl;
       return 1;
     }
-    std::cout << "Sent bytes: " << nSent <<std::endl;
+    //std::cout << "Sent bytes: " << nSent <<std::endl;
     libusb_bulk_transfer(radioHandle, USB_ENDPOINT_IN, data_in, 5, &nRec, USB_TIMEOUT);
     if(result){
       std::cerr << "ERROR in bulk read" <<std::endl;
       return 1;
     }
-    std::cout << "Received bytes: " << nRec <<std::endl;
-    std::cout << data_in << std::endl;
+    //std::cout << "Received bytes: " << nRec <<std::endl;
+    //std::cout << data_in << std::endl;
+    std::cout << i << std::endl;
+    i++;
   }
 
   libusb_unref_device(radioDevice);
