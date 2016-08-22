@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/gustavo/git/roboime-usb/src/main.cpp
+libusb-1.0/libusb.h
+-
+unistd.h
+-
+iostream
+-
+stdio.h
+-
+
