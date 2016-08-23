@@ -7,7 +7,7 @@
 #define USBD_PID 0x5740
 #define USB_ENDPOINT_IN	    (0x81)   /* endpoint address */
 #define USB_ENDPOINT_OUT	(0x01)   /* endpoint address */
-#define USB_TIMEOUT	        3000        /* Connection timeout (in ms) */
+#define USB_TIMEOUT	        1        /* Connection timeout (in ms) */
 
 
 int main(){

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/gustavo/git/roboime-usb/src/main.cpp
+/home/roboime/git/intel-usb/src/main.cpp
 libusb-1.0/libusb.h
 -
 unistd.h
