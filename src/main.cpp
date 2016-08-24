@@ -9,7 +9,7 @@
 #define USBD_PID 0x5740
 #define USB_ENDPOINT_IN     (0x81)   /* endpoint address */
 #define USB_ENDPOINT_OUT        (0x01)   /* endpoint address */
-#define USB_TIMEOUT             3000        /* Connection timeout (in ms) */
+#define USB_TIMEOUT             1        /* Connection timeout (in ms) */
 
 int main(){
   Joystick joystick("/dev/input/js0");
@@ -71,10 +71,11 @@ int main(){
   while (true)
   {
     // Restrict rate
-    usleep(1000);
+    usleep(3000);
 
     // Attempt to sample an event from the joystick
     JoystickEvent event;
+    int result;
     if (joystick.sample(&event))
     {
       if (event.isAxis()&&(event.number==1)){
@@ -101,28 +102,30 @@ int main(){
           vel[3]=event.value*100/32800+100;
         }
       }
-      printf("v0: %d, v1: %d, v2: %d, \n", vel[1], vel[2], vel[3]);
+      if(!result)
+        printf("v0: %d, v1: %d, v2: %d, \n", vel[1], vel[2], vel[3]);
       vel[0]='a';
       vel[4]=0;
       vel[5]=0;
-      int result;
-      int nSent;
-      int nRec;
-      result = libusb_bulk_transfer(radioHandle, USB_ENDPOINT_OUT, vel, 6, &nSent, USB_TIMEOUT);
-      if(result){
-        std::cerr << "ERROR in bulk write" <<std::endl;
-        return 1;
-      }
-      //std::cout << "Sent bytes: " << nSent <<std::endl;
-      unsigned char data_in[5];
-      libusb_bulk_transfer(radioHandle, USB_ENDPOINT_IN, data_in, 5, &nRec, USB_TIMEOUT);
-      if(result){
-        std::cerr << "ERROR in bulk read" <<std::endl;
-        return 1;
-      }
       //std::cout << "Received bytes: " << nRec <<std::endl;
       //std::cout << data_in << std::endl;
     }
+    int nSent;
+    int nRec;
+    result = libusb_bulk_transfer(radioHandle, USB_ENDPOINT_OUT, vel, 6, &nSent, 100);
+    if(result){
+      std::cerr << "ERROR in bulk write" <<std::endl;
+      return 1;
+    }
+    //std::cout << "Sent bytes: " << nSent <<std::endl;
+    unsigned char data_in[5];
+    libusb_bulk_transfer(radioHandle, USB_ENDPOINT_IN, data_in, 5, &nRec, 100);
+    if(result){
+      std::cerr << "ERROR in bulk read" <<std::endl;
+      return 1;
+    }
+    std::cerr << data_in <<std::endl;
+    std::cerr << nRec <<std::endl;
   }
   return 0;
 }

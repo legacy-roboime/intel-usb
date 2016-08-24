@@ -10,7 +10,7 @@
 string
 -
 
-/home/gustavo/git/roboime-usb/src/main.cpp
+/home/roboime/git/intel-usb/src/main.cpp
 unistd.h
 -
 stdlib.h
