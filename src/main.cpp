@@ -9,7 +9,7 @@
 #define USBD_PID 0x5740
 #define USB_ENDPOINT_IN     (0x81)   /* endpoint address */
 #define USB_ENDPOINT_OUT        (0x01)   /* endpoint address */
-#define USB_TIMEOUT             1        /* Connection timeout (in ms) */
+#define USB_TIMEOUT             4        /* Connection timeout (in ms) */
 
 int main(){
   Joystick joystick("/dev/input/js0");
@@ -76,17 +76,19 @@ int main(){
     // Attempt to sample an event from the joystick
     JoystickEvent event;
     int result;
+    bool chuteBaixo;
+    bool chuteAlto;
     if (joystick.sample(&event))
     {
-      if (event.isAxis()&&(event.number==1)){
-        if(event.value<=0){
-          vel[1]=-event.value*100/32800;
+      if (event.isAxis()&&(event.number==0)){
+        if(event.value<0){
+          vel[1]=-event.value*100/32800+100;
         }
         else{
-          vel[1]=event.value*100/32800+100;
+          vel[1]=event.value*100/32800;
         }
       }
-      if (event.isAxis()&&(event.number==0)){
+      if (event.isAxis()&&(event.number==1)){
         if(event.value<=0){
           vel[2]=-event.value*100/32800;
         }
@@ -102,13 +104,42 @@ int main(){
           vel[3]=event.value*100/32800+100;
         }
       }
+      if (event.isAxis()&&(event.number==2)){
+        if(event.value>-32700){
+          vel[5]=100*(event.value+32800)/65600;
+        }
+        else{
+          vel[5]=0;
+        }
+      }
+      if ((event.isButton())&&(event.number==0))
+      {
+        event.value == 0;
+        chuteBaixo = true;
+      }
+      if ((event.isButton())&&(event.number==1))
+      {
+        event.value == 0;
+        chuteAlto = true;
+      }
       if(!result)
-        printf("v0: %d, v1: %d, v2: %d, \n", vel[1], vel[2], vel[3]);
+        printf("v0: %d, v1: %d, v2: %d, v3: %d \n", vel[1], vel[2], vel[3], vel[5]);
       vel[0]='a';
-      vel[4]=0;
-      vel[5]=0;
       //std::cout << "Received bytes: " << nRec <<std::endl;
       //std::cout << data_in << std::endl;
+    }
+    if(chuteBaixo){
+      printf("chute!!\n");
+      vel[4]=0b00000001;
+      chuteBaixo=false;
+    }
+    else if(chuteAlto){
+      printf("chute!!\n");
+      vel[4]=0b00000010;
+      chuteAlto=false;
+    }
+    else{
+      vel[4]=0;
     }
     int nSent;
     int nRec;
@@ -124,8 +155,8 @@ int main(){
       std::cerr << "ERROR in bulk read" <<std::endl;
       return 1;
     }
-    std::cerr << data_in <<std::endl;
-    std::cerr << nRec <<std::endl;
+    //std::cerr << data_in <<std::endl;
+    //std::cerr << nRec <<std::endl;
   }
   return 0;
 }
