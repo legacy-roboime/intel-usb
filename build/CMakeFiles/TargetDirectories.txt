@@ -1,1 +1,0 @@
-/home/roboime/git/intel-usb/build/CMakeFiles/simple.dir
