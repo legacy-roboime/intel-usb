@@ -1,6 +1,7 @@
- 5
-down vote
-	
+intel-usb
+=========
+
+    cargo run
 
 After you have claimed the device, run this (where $ represents the terminal entry point):
 
@@ -13,4 +14,3 @@ If you get confused use the lsusb man page:
 http://linux.die.net/man/8/lsusb
 
 Then once your description comes up, find the line labeled bEndpointAddress and the hex code following will be the endpoint for that specific Report.
-

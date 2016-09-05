@@ -1,0 +1,8 @@
+[package]
+name = "intel-usb"
+version = "0.1.0"
+authors = ["Jan Segre <jan@segre.in>"]
+
+[dependencies]
+libusb = "0.2"
+gilrs = "0.2"
