@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/simple.dir/src/main.cpp.o CMakeFiles/simple.dir/src/joystick.cc.o  -o simple -rdynamic -lusb-1.0 

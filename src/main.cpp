@@ -1,9 +1,10 @@
-#include <unistd.h>
+#include<unistd.h>
+#include<cstring>
 #include<stdlib.h>
 #include<joystick.hh>
 #include<stdio.h>
-#include <libusb-1.0/libusb.h>
-#include <iostream>
+#include<libusb-1.0/libusb.h>
+#include<iostream>
 
 #define USBD_VID 0x0483
 #define USBD_PID 0x5740
@@ -67,11 +68,13 @@ int main(){
   }
   std::cout<<"Claimed Interface"<<std::endl;
 
-  unsigned char vel[6];
+  uint8_t roboId;
+  int16_t vel[3];
+  uint8_t velDibre;
   while (true)
   {
     // Restrict rate
-    usleep(3000);
+    usleep(100);
 
     // Attempt to sample an event from the joystick
     JoystickEvent event;
@@ -81,76 +84,64 @@ int main(){
     if (joystick.sample(&event))
     {
       if (event.isAxis()&&(event.number==0)){
-        if(event.value<0){
-          vel[1]=-event.value*100/32800+100;
-        }
-        else{
-          vel[1]=event.value*100/32800;
-        }
+        vel[0]=event.value*1000/32800;
       }
       if (event.isAxis()&&(event.number==1)){
-        if(event.value<=0){
-          vel[2]=-event.value*100/32800;
-        }
-        else{
-          vel[2]=event.value*100/32800+100;
-        }
+        vel[1]=-event.value*1000/32800;
       }
-      if (event.isAxis()&&(event.number==4)){
-        if(event.value<=0){
-          vel[3]=-event.value*100/32800;
-        }
-        else{
-          vel[3]=event.value*100/32800+100;
-        }
+      if (event.isAxis()&&(event.number==3)){
+        vel[2]=-event.value*1000/32800;
       }
       if (event.isAxis()&&(event.number==2)){
         if(event.value>-32700){
-          vel[5]=100*(event.value+32800)/65600;
+          velDibre=100*(event.value+32800)/65600;
         }
         else{
-          vel[5]=0;
+          velDibre=0;
         }
       }
-      if ((event.isButton())&&(event.number==0))
-      {
-        event.value == 0;
+      if((event.isButton())&&(event.number==0)&&(event.value==1)){
         chuteBaixo = true;
       }
-      if ((event.isButton())&&(event.number==1))
-      {
-        event.value == 0;
+      if((event.isButton())&&(event.number==1)&&(event.value==1)){
         chuteAlto = true;
       }
+      if((event.isButton())&&(event.number==3)&&(event.value==1)){
+        if(roboId<6)
+          roboId++;
+        else
+          roboId=0;
+      }
       if(!result)
-        printf("v0: %d, v1: %d, v2: %d, v3: %d \n", vel[1], vel[2], vel[3], vel[5]);
-      vel[0]='a';
+        printf("v0: %d, v1: %d, v2: %d, v3: %d id: %d\n", vel[0], vel[1], vel[2], velDibre, roboId);
       //std::cout << "Received bytes: " << nRec <<std::endl;
       //std::cout << data_in << std::endl;
     }
+    uint8_t dataOut[29];
+    dataOut[0]='a';
+    dataOut[1]=roboId;
     if(chuteBaixo){
-      printf("chute!!\n");
-      vel[4]=0b00000001;
       chuteBaixo=false;
-    }
-    else if(chuteAlto){
       printf("chute!!\n");
-      vel[4]=0b00000010;
+      dataOut[11]=0b00000001;
+    }
+    if(chuteAlto){
       chuteAlto=false;
+      printf("chute!!\n");
+      dataOut[11]=0b00000010;
     }
-    else{
-      vel[4]=0;
-    }
+    dataOut[12]=velDibre;
+    memcpy((dataOut+14), vel, 6);
     int nSent;
     int nRec;
-    result = libusb_bulk_transfer(radioHandle, USB_ENDPOINT_OUT, vel, 6, &nSent, 100);
+    result = libusb_bulk_transfer(radioHandle, USB_ENDPOINT_OUT, dataOut, 29, &nSent, 10);
     if(result){
       std::cerr << "ERROR in bulk write" <<std::endl;
       return 1;
     }
     //std::cout << "Sent bytes: " << nSent <<std::endl;
-    unsigned char data_in[5];
-    libusb_bulk_transfer(radioHandle, USB_ENDPOINT_IN, data_in, 5, &nRec, 100);
+    unsigned char data_in[17];
+    libusb_bulk_transfer(radioHandle, USB_ENDPOINT_IN, data_in, 17, &nRec, 10);
     if(result){
       std::cerr << "ERROR in bulk read" <<std::endl;
       return 1;

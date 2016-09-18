@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/joystick.hh
+string
+-
+
+/home/roboime/git/intel-usb/src/main.cpp
+unistd.h
+-
+cstring
+-
+stdlib.h
+-
+joystick.hh
+-
+stdio.h
+-
+libusb-1.0/libusb.h
+-
+iostream
+-
+
